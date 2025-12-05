@@ -1,4 +1,4 @@
-# Sign Language: 청각장애인을 위한 실시간 수어 양방향 소통 서비스
+# 🤟 Sign Language: 청각장애인을 위한 실시간 수어 양방향 소통 서비스
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/79898245/154721052-6da910b3-aba1-4766-b4e8-c71841a43b94.png" width="100%" alt="Project Banner">
@@ -14,22 +14,27 @@
 
 ---
 
-## 프로젝트 개요 (Overview)
+## 📝 프로젝트 개요 (Overview)
 
 > **"수어(Sign Language)와 음성 언어(Spoken Language)의 장벽을 허물다"**
+
+<div align="center">
+  <img src="assets/ui_mockup.png" width="80%" alt="Service UI Mockup">
+  <p><em>[서비스 실행 예시 화면]</em></p>
+</div>
 
 청각장애인은 수화를 제1언어로 사용하지만, 수화를 모르는 비장애인과의 소통에는 여전히 큰 어려움이 존재합니다. 본 프로젝트는 이러한 **소통의 단절(Communication Gap)**을 해결하기 위해 딥러닝 기반의 컴퓨터 비전 기술을 활용합니다.
 
 **수화 동작을 실시간으로 인식하여 자막으로 번역**하고, 반대로 **음성을 텍스트로 변환**하여 전달하는 양방향 통역 인터페이스를 제공함으로써, 누구나 자유롭게 소통할 수 있는 세상을 지향합니다.
 
-### 기획 의도
+### 🎯 기획 의도
 1.  **소통의 장벽 해소**: 전문 수어 통역사 없이도 청각장애인과 비장애인 간의 즉각적이고 원활한 의사소통 지원
 2.  **사회적 가치 창출**: 만성적인 수어 통역사 부족 문제 보완 및 청각장애인의 사회적 고립감 해소
 3.  **생활 밀착형 지원**: 관공서, 병원 등 필수 생활 공간에서의 독립적인 업무 처리 보조
 
 ---
 
-## 기술 스택 (Tech Stack)
+## 🛠 기술 스택 (Tech Stack)
 
 | 구분 | 상세 기술 | 비고 |
 |:---:|:---|:---|
@@ -42,7 +47,11 @@
 
 ---
 
-## 시스템 아키텍처 (System Architecture)
+## 🔄 시스템 아키텍처 (System Architecture)
+
+<div align="center">
+  <img src="assets/system_architecture.png" width="90%" alt="System Architecture Diagram">
+</div>
 
 사용자 간의 끊김 없는 소통을 위해 **3단계 순환 인터페이스**를 구축하였습니다.
 
@@ -57,7 +66,7 @@
 
 ---
 
-## 핵심 구현 내용 (Key Features)
+## 💡 핵심 구현 내용 (Key Features)
 
 ### 1. 데이터셋 구축 및 전처리 (Dataset & Preprocessing)
 *   **Custom Dataset**: 10가지 주요 수화 동작을 다양한 각도와 조명 환경에서 촬영하여 데이터 확보
@@ -75,7 +84,7 @@
 
 ---
 
-## 트러블 슈팅 (Troubleshooting)
+## 🚀 트러블 슈팅 (Troubleshooting)
 
 ### Issue 1. 하드웨어 한계 극복 및 범용성 확보
 *   **Problem**: 초기 '립모션(Leap Motion)' 센서 사용 시, 손의 위치나 크기에 따라 인식률 편차가 심하고 별도 장비가 필요하다는 단점 발생.
@@ -92,7 +101,7 @@
 
 ---
 
-## 주요 코드 (Key Code)
+## 💻 주요 코드 (Key Code)
 
 **Multi-threading을 활용한 영상 스트리밍 및 YOLO 객체 탐지**
 
