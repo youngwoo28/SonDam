@@ -49,8 +49,9 @@
 ## 시스템 아키텍처 (System Architecture)
 
 <div align="center">
-  <img src="assets/system_architecture.png" width="90%" alt="System Architecture Diagram">
+   <img width="777" height="731" alt="스크린샷 2025-12-05 오후 4 40 27" src="https://github.com/user-attachments/assets/ebd08d3c-bada-4bf2-a9a0-9d984fef07d2" />
 </div>
+
 
 사용자 간의 끊김 없는 소통을 위해 **3단계 순환 인터페이스**를 구축하였습니다.
 
