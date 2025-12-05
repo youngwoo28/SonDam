@@ -41,22 +41,16 @@
 ## 핵심 구현 내용 (Feature Implementation)
 
 ### 1. 데이터셋 구축 및 전처리
-<img src="https://user-images.githubusercontent.com/79898245/154719527-417de104-6a5e-4dc7-8a82-54fcaac1bbb5.png" width="45%" align="left">
-<img src="https://user-images.githubusercontent.com/79898245/154721691-8c6755f6-dfaf-4c13-a17c-2b10ec70b13e.png" width="35%">
-<br clear="both">
 
 * **데이터 확보:** 10가지의 주요 수화 동작을 다양한 각도와 배경에서 촬영하고, 영상을 프레임 단위로 잘라내어 자체 데이터셋을 구축하였습니다.
 * **Labeling:** 확보한 이미지 데이터에서 손 영역을 직접 지정하여 YOLO 학습을 위한 라벨링 작업을 수행했습니다.
 
 ### 2. 모델 학습 및 최적화
-<img src="https://user-images.githubusercontent.com/79898245/154719694-4f6c0cc1-26b9-41fa-bf94-886a63b8f369.png" align="right" width="400">
-<img src="https://user-images.githubusercontent.com/79898245/154719411-79d58a5d-d79a-466c-8260-1c8e57784a69.png" width="300">
 
 * **학습 진행:** 약 10,000장의 커스텀 데이터셋을 활용하여 24,000번의 반복 학습(Iteration)을 진행했습니다.
 * **결과:** Loss(손실율) 값을 지속적으로 모니터링하며 과적합을 방지하였고, 최종적으로 **평균 92%의 인식 정확도**를 달성한 가중치 파일을 생성하였습니다.
 
 ### 3. 서비스 시나리오 및 UI
-<img src="https://user-images.githubusercontent.com/79898245/154726457-6f980601-be7c-4857-a547-b44452b9b268.png" width="100%">
 
 * **시나리오 기반 설계:** 병원, 관공서 등 자주 방문하는 장소를 카테고리화하여 상황에 맞는 예상 질문과 답변 매뉴얼을 제공합니다.
 * **채팅 인터페이스:**
