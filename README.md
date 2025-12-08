@@ -68,7 +68,7 @@
 └── public/                   # 정적 리소스 (이미지, 3D 모델 등)
 ```
 
-## 🚀 주요 기능 (Features)
+## 주요 기능 (Features)
 
 ### 1. 수어 사전 (Dictionary)
 - **파일 위치:** `components/dictionary-page.tsx`
