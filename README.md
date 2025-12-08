@@ -18,7 +18,7 @@
 | ![Avatar](./public/3d-avatar-sign-language.jpg) | ![Community](./public/family-sign-language.jpg) |
 | *텍스트를 수어로 표현하는 3D 모델* | *사용자 간 소통 공간 및 인증* |
 
-> *※ 현재 위 이미지는 예시이며, 실제 구동 화면은 개발 진행 상황에 따라 업데이트됩니다.*
+> *※ 현재 상황이며, 개발 진행 상황에 따라 업데이트됩니다.*
 
 <br>
 
