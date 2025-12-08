@@ -109,7 +109,9 @@ npm run dev
 
 </details>
 
-개발자 (Developer)
+<br>
+
+## 개발자 (Developer)
 Youngwoo
 
 Role: Full Stack Developer & AI Researcher
