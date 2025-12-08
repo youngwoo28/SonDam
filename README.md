@@ -2,7 +2,7 @@
 
 > **"손으로 나누는 따뜻한 이야기"**
 > 청각장애인과 비장애인의 소통 장벽을 허무는 AI 기반 수어 번역 및 검색 서비스
-<img src="./public/3d-avatar-sign-language.jpg" width="100%" height="250">
+<img src="./public/3d-avatar-sign-language.jpg" width="80%" height="550">
 
 ![Next.js](https://img.shields.io/badge/Next.js_14-black?logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-green)
 
