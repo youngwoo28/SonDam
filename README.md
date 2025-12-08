@@ -68,26 +68,45 @@
 └── public/                   # 정적 리소스 (이미지, 3D 모델 등)
 ```
 
-## 주요 기능 (Features)
-1. 수어 사전 (Dictionary)
-components/dictionary-page.tsx
+## 🚀 주요 기능 (Features)
 
-텍스트 입력 시 데이터베이스(Mock Data)에서 매칭되는 수어 영상을 카드 형태로 출력합니다.
+### 1. 수어 사전 (Dictionary)
+- **파일 위치:** `components/dictionary-page.tsx`
+- 텍스트 입력 시 데이터베이스(Mock Data)에서 매칭되는 수어 영상을 카드 형태로 출력합니다.
+- 카테고리별 필터링 기능을 제공합니다.
 
-카테고리별 필터링 기능을 제공합니다.
+### 2. AI 번역기 (Translator Interface)
+- **파일 위치:** `components/translator-page.tsx`
+- 웹캠 입력을 받을 수 있는 UI가 구현되어 있습니다.
+- 향후 **YOLO 모델**을 연동하여 실시간 손 동작 인식을 수행할 예정입니다.
 
-2. AI 번역기 (Translator Interface)
-components/translator-page.tsx
-
-웹캠 입력을 받을 수 있는 UI가 구현되어 있습니다.
-
-향후 YOLO 모델을 연동하여 실시간 손 동작 인식을 수행할 예정입니다.
-
-3. 수어 아바타 (3D Avatar)
-components/avatar-page.tsx
-
-텍스트나 음성을 입력하면 3D 캐릭터가 수어 동작을 수행하는 뷰어입니다.
-
-현재는 프로토타입 UI가 적용되어 있습니다.
+### 3. 수어 아바타 (3D Avatar)
+- **파일 위치:** `components/avatar-page.tsx`
+- 텍스트나 음성을 입력하면 3D 캐릭터가 수어 동작을 수행하는 뷰어입니다.
+- 현재는 프로토타입 UI가 적용되어 있습니다.
 
 <br>
+
+## 실행 방법 (How to Run)
+
+터미널에서 아래 명령어를 순서대로 입력하세요.
+
+```bash
+# 1. 저장소 복제
+git clone [https://github.com/youngwoo28/SonDam.git](https://github.com/youngwoo28/SonDam.git)
+
+# 2. 패키지 설치
+npm install
+# or
+pnpm install
+
+# 3. 개발 서버 실행
+npm run dev
+```
+
+개발자 (Developer)
+Youngwoo
+
+Role: Full Stack Developer & AI Researcher
+
+GitHub: @youngwoo28
