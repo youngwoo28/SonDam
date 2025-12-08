@@ -29,7 +29,8 @@
 **SonDam(손담)**은 '수어(Sign Language)'를 매개로 소통의 장벽을 낮추는 웹 플랫폼입니다.
 `Next.js 14`의 강력한 성능과 `shadcn/ui`의 모던한 디자인 시스템을 결합하여, 누구나 쉽게 접근할 수 있는 **Barrier-Free** 웹사이트를 구축했습니다.
 
-<img src="./public/hospital-sign-language.jpg" width="100%" height="650">
+<img src="./public/hospital-sign-language.jpg" width="100%" height="650">  
+
 ### 핵심 목표
 1. **쉬운 접근성:** 복잡한 설치 없이 웹에서 바로 검색하고 학습
 2. **AI 확장성:** 단순 사전을 넘어, 향후 AI 모델(YOLO, STT) 탑재를 고려한 모듈형 설계
