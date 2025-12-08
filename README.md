@@ -6,12 +6,13 @@
 ![Next.js](https://img.shields.io/badge/Next.js_14-black?logo=next.js) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-green)
 
 
+
 <br>
 
 ## 서비스 화면 (Service Preview)
 | **메인 홈 & 수어 사전** | **AI 수어 번역 (UI)** |
 | :---: | :---: |
-| ![Home Screen]([./public/sign-language-hello.jpg](https://github.com/user-attachments/assets/55dad647-239c-4a86-955e-c69ba53d24f2)) | ![Translator](./public/hospital-sign-language.jpg) |
+| ![Home Screen](https://github.com/user-attachments/assets/55dad647-239c-4a86-955e-c69ba53d24f2) | ![Translator](./public/hospital-sign-language.jpg) |
 | *직관적인 검색창과 추천 단어 카드* | *웹캠 기반 실시간 번역 인터페이스* |
 
 | **3D 수어 아바타** | **커뮤니티 & 로그인** |
