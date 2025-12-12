@@ -3,13 +3,11 @@ import json
 import time
 import requests
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
 
 # ==========================================
-# 1. 대상 데이터 (국립국어원 ID)
+# 1. 대상 데이터
 # ==========================================
 TARGET_MAP = [
     {"id_code": "11686", "word": "안녕하세요", "cat": "일상", "desc": "만남의 기본 인사", "ctx": "어른이나 친구를 만났을 때 사용합니다.", "rel": ["반갑습니다"]},
@@ -33,27 +31,31 @@ os.makedirs(VIDEO_DIR, exist_ok=True)
 os.makedirs(THUMB_DIR, exist_ok=True)
 
 # ==========================================
-# 3. 셀레니움 브라우저 설정 (사용자 경로 반영)
+# 3. 셀레니움 브라우저 설정 (Native Mode)
 # ==========================================
-print("🔧 브라우저 세팅 중... (경로: 내가 다운로드 한 거/Google Chrome.app)")
+print("🔧 브라우저 세팅 중... (Native Selenium Manager)")
 
 chrome_options = Options()
 
-# [핵심 수정] 사용자가 알려준 경로로 정확히 지정
+# [경로 지정]
 chrome_options.binary_location = "/Applications/내가 다운로드 한 거/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-# Headless 모드 (오류 방지를 위해 일단 끄고 창이 뜨는 걸 눈으로 확인하세요)
-# chrome_options.add_argument("--headless") 
+# [안정성 옵션]
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--remote-debugging-port=9222") # 포트 충돌 방지
+chrome_options.add_argument("--window-size=1920,1080")
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
 
 try:
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    # Service나 ChromeDriverManager 없이 options만 넣으면 
+    # Selenium 4.6+가 알아서 버전을 맞춥니다.
+    driver = webdriver.Chrome(options=chrome_options)
 except Exception as e:
     print("\n❌ 브라우저 실행 실패!")
     print(f"에러 메시지: {e}")
+    print("👉 팁: pip install --upgrade selenium 명령어로 셀레니움을 최신으로 업데이트 해보세요.")
     exit()
 
 def download_content(url, save_path):
@@ -94,7 +96,7 @@ try:
         
         print(f"[{idx}/8] 📥 '{display_word}' 페이지 접속 중...")
         driver.get(target_url)
-        time.sleep(2) # 로딩 대기
+        time.sleep(2) 
         
         video_url = None
         
@@ -150,7 +152,10 @@ try:
             print(f"      ❌ 영상을 못 찾았습니다.")
 
 finally:
-    driver.quit()
+    try:
+        driver.quit()
+    except:
+        pass
 
 print("\n" + "="*60)
 print("✅ 작업 완료! 아래 JSON을 backend/main.py에 복사하세요.")
