@@ -10,7 +10,7 @@
 <br>     
   
 ## 서비스 화면 (Service Preview)   
-| **메인 홈 & 수어 사전** | **AI 수어 번역 (UI)** |
+| **메인 홈 & 수어 사전** | **AI 수어 번역 (UI)** | 
 | :---: | :---: |
 | ![Home Screen](https://github.com/user-attachments/assets/55dad647-239c-4a86-955e-c69ba53d24f2) | ![Translator](https://github.com/user-attachments/assets/d61b9c92-7c66-4204-8be9-b85899c0bb9e) |
 | *직관적인 검색창과 추천 단어 카드* | *웹캠 기반 실시간 번역 인터페이스* |
