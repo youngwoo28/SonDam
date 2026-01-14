@@ -1,11 +1,27 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List, Optional
+from sign_recognizer import SignLanguageRecognizer
+from pathlib import Path
+from datetime import datetime
+import json
+import os
+
 
 app = FastAPI()
 
+# public 폴더를 /videos 경로로 마운트 (정적 파일 서빙)
+# 실제 경로는 ../public (backend 기준 상위 폴더의 public)
+app.mount("/videos", StaticFiles(directory="../public/videos"), name="videos")
+app.mount("/thumbnails", StaticFiles(directory="../public/thumbnails"), name="thumbnails")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 # CORS 설정 (Next.js인 localhost:3000 에서 오는 요청을 허용)
 origins = [
-    "http://localhost:3000",
+    "*",
 ]
 
 app.add_middleware(
@@ -22,6 +38,40 @@ def read_root():
 
 @app.get("/api/dictionary")
 def get_dictionary():
+    
+    # 1. Try Loading S3 Data
+    s3_data_path = "data/dictionary_s3.json"
+    if os.path.exists(s3_data_path):
+        try:
+            with open(s3_data_path, "r", encoding="utf-8") as f:
+                s3_data = json.load(f)
+            
+            # Format transformation (if needed) to match frontend expectation
+            # Frontend expects: id, word, description, category, thumbnailUrl, videoUrl, difficulty
+            # S3 data has: word, category, description, videoUrl, thumbnailUrl, difficulty
+            
+            response_data = []
+            for idx, item in enumerate(s3_data):
+                response_data.append({
+                    "id": idx + 1,
+                    "word": item["word"],
+                    "description": item["description"],
+                    "category": item["category"],
+                    "thumbnailUrl": item["thumbnailUrl"],
+                    "videoUrl": item["videoUrl"],
+                    "difficulty": item["difficulty"],
+                    "key_point": item.get("key_point", f"{item['word']} 수어 동작입니다."),
+                    "context": item.get("context", "일상 생활에서 자주 사용됩니다."),
+                    "related_words": item.get("related_words", [])
+                })
+            
+            return {"words": response_data}
+        except Exception as e:
+            print(f"Error loading S3 data: {e}")
+            # Fallback to default if error
+            pass
+
+    # 2. Default Hardcoded Data (Fallback)
     return {
         "words": [
             {
@@ -29,97 +79,123 @@ def get_dictionary():
                 "word": "안녕하세요",
                 "description": "만남의 기본 인사",
                 "category": "일상",
-                "thumbnailUrl": "/sign-language-hello.jpg",
-                # [수정됨] 국립국어원 영상 (크롤링 데이터 적용)
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/09/25/2020092518593498877.mp4",
+                "thumbnailUrl": "/thumbnails/sign-language-hello.png",
+                "videoUrl": "http://localhost:8000/videos/1_안녕하세요.mp4",
                 "difficulty": "초급",
                 "key_point": "두 주먹을 가슴 앞에서 아래로 공손하게 내리세요.",
                 "context": "어른이나 친구를 만났을 때 사용합니다.",
                 "related_words": ["반갑습니다", "오랜만입니다"]
             },
-            {
+            # ... (Keep one or two samples as fallback) ...
+             {
                 "id": 2,
                 "word": "감사합니다",
                 "description": "고마움을 표현하는 수화",
                 "category": "일상",
                 "thumbnailUrl": "/sign-language-thank-you.png",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/09/25/2020092519014526644.mp4",
+                "videoUrl": "http://localhost:8000/videos/2_감사합니다.mp4",
                 "difficulty": "초급",
                 "key_point": "왼손 등을 오른손 날로 두 번 가볍게 두드립니니다.",
                 "context": "선물을 받거나 도움을 받았을 때 사용해요.",
                 "related_words": ["고마워", "천만에요"]
-            },
-            {
-                "id": 3,
-                "word": "사랑해요",
-                "description": "사랑을 전하는 수화",
-                "category": "감정",
-                "thumbnailUrl": "/sign-language-love.jpg",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/08/21/2020082116035178788.mp4",
-                "difficulty": "초급",
-                "key_point": "왼손 주먹 위에 오른손바닥을 대고 둥글게 돌려줍니다.",
-                "context": "가족, 연인에게 마음을 표현할 때 써보세요.",
-                "related_words": ["좋아해요", "행복해요"]
-            },
-            {
-                "id": 4,
-                "word": "도와주세요",
-                "description": "도움을 요청하는 수화",
-                "category": "일상",
-                "thumbnailUrl": "/sign-language-help.png",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/09/25/2020092518552178229.mp4",
-                "difficulty": "중급",
-                "key_point": "왼손바닥 위에 오른손 주먹(엄지 세움)을 올려 돕는 모양을 만듭니다.",
-                "context": "긴급한 상황이나 부탁이 있을 때 사용합니다.",
-                "related_words": ["살려주세요", "부탁합니다"]
-            },
-            {
-                "id": 5,
-                "word": "친구",
-                "description": "친밀한 관계를 표현",
-                "category": "관계",
-                "thumbnailUrl": "/sign-language-friend.jpg",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/08/21/2020082116062634354.mp4",
-                "difficulty": "초급",
-                "key_point": "두 손으로 악수하듯이 서로 맞잡아 흔듭니다.",
-                "context": "친한 사이임을 소개할 때 씁니다.",
-                "related_words": ["우정", "단짝"]
-            },
-            {
-                "id": 6,
-                "word": "가족",
-                "description": "한 집에 사는 식구",
-                "category": "관계",
-                "thumbnailUrl": "/family-sign-language.jpg",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/08/21/2020082116084358897.mp4",
-                "difficulty": "초급",
-                "key_point": "두 손을 펴서 지붕 모양을 만들었다가 동그랗게 모읍니다.",
-                "context": "우리 집 식구들을 소개할 때 사용해요.",
-                "related_words": ["집", "부모님"]
-            },
-            {
-                "id": 7,
-                "word": "학교",
-                "description": "배움의 장소",
-                "category": "장소",
-                "thumbnailUrl": "/school-sign-language.jpg",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/08/21/2020082116110967008.mp4",
-                "difficulty": "초급",
-                "key_point": "책을 펴서 읽는 동작 후 집(지붕) 모양을 만듭니다.",
-                "context": "학생들이 공부하러 가는 곳입니다.",
-                "related_words": ["선생님", "공부"]
-            },
-            {
-                "id": 8,
-                "word": "병원",
-                "description": "아플 때 가는 곳",
-                "category": "장소",
-                "thumbnailUrl": "/hospital-sign-language.jpg",
-                "videoUrl": "https://sldict.korean.go.kr/multimedia/2020/08/21/2020082116135894334.mp4",
-                "difficulty": "중급",
-                "key_point": "손목의 맥박을 짚는 시늉을 한 뒤 집 모양을 만듭니다.",
-                "context": "몸이 아파서 치료가 필요할 때 가는 곳입니다.",
-                "related_words": ["의사", "약국"]
             }
         ]
     }
+
+
+
+# ===== Sign Language Recognition API =====
+# Initialize recognizer
+recognizer = SignLanguageRecognizer()
+
+class RecognitionRequest(BaseModel):
+    landmarks: List[List[List[float]]]  # Sequence of frames: 30 frames × 21 landmarks × [x, y, z]
+
+class ContributionRequest(BaseModel):
+    """사용자 기여 데이터"""
+    sign: str
+    landmarks: List[dict]  # 프레임별 랜드마크 데이터
+    contributor_id: Optional[str] = None
+
+@app.post("/api/recognize")
+async def recognize_sign(request: RecognitionRequest):
+    """
+    Recognize sign language from MediaPipe hand landmarks sequence
+    
+    Expected input format:
+    {
+        "landmarks": [
+            # Frame 1
+            [
+                [x1, y1, z1],  # Landmark 0 (wrist)
+                ...
+                [x21, y21, z21] # Landmark 20 (pinky tip)
+            ],
+            # ... Frame 30
+        ]
+    }
+    
+    Returns:
+    {
+        "sign": "안녕",
+        "confidence": 0.92,
+        "method": "ml_model"
+    }
+    """
+    try:
+        sign, confidence = recognizer.recognize_from_landmarks(
+            request.landmarks
+        )
+        
+        return {
+            "sign": sign,
+            "confidence": float(confidence),
+            "method": "rule_based" if recognizer.use_rules else "ml_model"
+        }
+    except Exception as e:
+        print(f"Recognition error: {e}")
+        return {
+            "sign": "오류",
+            "confidence": 0.0,
+            "error": str(e)
+        }
+@app.post("/api/contribute")
+async def contribute_data(request: ContributionRequest):
+    """
+    사용자가 기여한 수어 데이터 저장
+    """
+    try:
+        if not request.landmarks or len(request.landmarks) == 0:
+            raise HTTPException(status_code=400, detail="No landmarks provided")
+        
+        # timestamp 생성
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # 파일명 생성
+        filename = f"contribution_{timestamp}_{request.sign}.json"
+        
+        # collected_data/contributions/ 폴더에 저장
+        save_dir = Path("collected_data/contributions")
+        save_dir.mkdir(parents=True, exist_ok=True)
+        save_path = save_dir / filename
+        
+        # 데이터 저장
+        contribution_data = {
+            "sign": request.sign,
+            "sequence": request.landmarks,
+            "contributor": request.contributor_id or "anonymous",
+            "timestamp": datetime.now().isoformat(),
+            "frames": len(request.landmarks)
+        }
+        
+        with open(save_path, 'w', encoding='utf-8') as f:
+            json.dump([contribution_data], f, ensure_ascii=False, indent=2)
+        
+        return {
+            "success": True,
+            "message": "감사합니다! 데이터가 저장되었습니다.",
+            "contribution_id": timestamp
+        }
+    except Exception as e:
+        print(f"Contribution error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

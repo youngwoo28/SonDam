@@ -1,12 +1,12 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 /* Enhanced color system with richer depth */
 :root {
   /* Refined warm palette with better contrast */
-  --background: oklch(0.99 0.003 90);
+  --background: oklch(0.98 0 0);
+  /* #F9FAFB equivalent in oklch approx */
   --foreground: oklch(0.15 0.01 240);
 
   --card: oklch(1 0 0);
@@ -15,25 +15,26 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0.01 240);
 
-  /* Vibrant coral primary for better brand presence */
-  --primary: oklch(0.6 0.2 30);
-  --primary-foreground: oklch(0.99 0.003 90);
+  /* Navy Blue Primary #1A2B4C */
+  --primary: oklch(0.25 0.08 260);
+  --primary-foreground: oklch(0.98 0 0);
 
-  --secondary: oklch(0.96 0.008 90);
-  --secondary-foreground: oklch(0.2 0.01 240);
+  /* Vibrant Orange Accent #FF6B00 */
+  --secondary: oklch(0.65 0.22 40);
+  --secondary-foreground: oklch(0.98 0 0);
 
-  --muted: oklch(0.96 0.008 90);
-  --muted-foreground: oklch(0.48 0.01 240);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.55 0 0);
 
-  --accent: oklch(0.94 0.02 240);
-  --accent-foreground: oklch(0.2 0.05 240);
+  --accent: oklch(0.96 0 0);
+  --accent-foreground: oklch(0.25 0.08 260);
 
   --destructive: oklch(0.58 0.22 25);
-  --destructive-foreground: oklch(0.99 0.003 90);
+  --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.92 0.008 90);
-  --input: oklch(0.92 0.008 90);
-  --ring: oklch(0.6 0.2 30);
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.25 0.08 260);
 
   /* Refined chart colors */
   --chart-1: oklch(0.68 0.22 35);
@@ -145,6 +146,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -155,6 +157,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -165,6 +168,7 @@
     opacity: 0;
     transform: translateY(16px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -176,6 +180,7 @@
     opacity: 0;
     transform: scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -199,4 +204,23 @@
   .safe-area-inset-bottom {
     padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
   }
+}
+
+/* Horizontal Marquee Animation */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

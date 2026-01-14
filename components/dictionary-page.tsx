@@ -48,12 +48,14 @@ const getYouTubeEmbedUrl = (url: string) => {
 }
 
 export default function DictionaryPage() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("전체")
   const [selectedDifficulty, setSelectedDifficulty] = useState("전체")
-  
-  const [allWords, setAllWords] = useState<WordData[]>([]) 
-  const [searchResults, setSearchResults] = useState<WordData[]>([])
+
+  const [allWords, setAllWords] = useState<WordData[]>([])
+  // filteredWords is now derived, so we don't need searchResults state if we just use filteredWords directly in render
+  // But keeping searchResults might be redundant if we use the new filteredWords logic.
+  // Let's rely on derived state for simplicity in render.
   const [loading, setLoading] = useState(true)
 
   const [selectedWord, setSelectedWord] = useState<WordData | null>(null)
@@ -63,9 +65,13 @@ export default function DictionaryPage() {
       try {
         const res = await fetch("http://localhost:8000/api/dictionary")
         const data = await res.json()
-        
-        const formattedData = data.words.map((item: any) => ({
+
+        const formattedData = data.words.map((item: any, index: number) => ({
           ...item,
+          id: item.id || index + 1,
+          description: item.description || "수어 단어", // Default to prevent crash
+          category: item.category || "기타",
+          difficulty: item.difficulty || "난이도 정보 없음",
           thumbnailUrl: item.thumbnailUrl || "/placeholder.svg",
           videoUrl: item.videoUrl || "",
           key_point: item.key_point || "동작 설명이 준비 중입니다.",
@@ -74,7 +80,6 @@ export default function DictionaryPage() {
         }))
 
         setAllWords(formattedData)
-        setSearchResults(formattedData)
       } catch (error) {
         console.error("백엔드 연결 실패:", error)
       } finally {
@@ -84,161 +89,189 @@ export default function DictionaryPage() {
     fetchData()
   }, [])
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    filterResults(query, selectedCategory, selectedDifficulty)
-  }
-
-  const filterResults = (query: string, category: string, difficulty: string) => {
-    let results = allWords
-    if (query.trim()) {
-      results = results.filter((item) =>
-          item.word.toLowerCase().includes(query.toLowerCase()) ||
-          item.description.toLowerCase().includes(query.toLowerCase())
-      )
-    }
-    if (category !== "전체") results = results.filter((item) => item.category === category)
-    if (difficulty !== "전체") results = results.filter((item) => item.difficulty === difficulty)
-    setSearchResults(results)
-  }
+  // New filtering logic based on searchTerm, selectedCategory, selectedDifficulty
+  const filteredWords = allWords.filter((item) => {
+    const matchesSearch = item.word.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "전체" || item.category === selectedCategory;
+    const matchesDifficulty = selectedDifficulty === "전체" || item.difficulty === selectedDifficulty;
+    return matchesSearch && matchesCategory && matchesDifficulty;
+  });
 
   if (loading) return <div className="flex h-screen items-center justify-center animate-pulse">데이터 로딩중...</div>
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* 상단 타이틀 및 검색바 */}
-      <div className="text-center space-y-4 mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-2">
-            <BookOpen className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">수화 사전</span>
-          </div>
-          <h2 className="text-3xl font-bold">소통의 언어를 배워요</h2>
-          <div className="max-w-2xl mx-auto relative group">
-            <Search className="absolute left-4 top-3.5 text-gray-400 group-focus-within:text-primary transition-colors" />
-            <Input 
-                placeholder="수화 단어를 검색해보세요..." 
-                className="pl-12 h-12 rounded-full border-2 focus-visible:ring-4 shadow-sm" 
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-            />
-          </div>
-          
-          <div className="flex flex-wrap gap-2 justify-center">
-             {categories.map((cat) => (
-               <Button key={cat} variant={selectedCategory === cat ? "default" : "outline"} size="sm" onClick={() => { setSelectedCategory(cat); filterResults(searchQuery, cat, selectedDifficulty); }} className="rounded-full">
-                 {cat}
-               </Button>
-             ))}
-          </div>
+    <div id="dictionary-section" className="container mx-auto px-4 py-24 max-w-7xl min-h-screen">
+      <div className="text-center space-y-4 mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 text-primary text-sm font-medium border border-primary/10">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+          </span>
+          Comprehensive KSL Dictionary
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-primary">수어 사전</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          엄선된 한국 수어 단어들을 검색하고 배워보세요.
+        </p>
+
+        <div className="max-w-md mx-auto relative mt-6">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="단어를 검색해보세요 (예: 사랑, 학교)"
+            className="pl-10 h-12 rounded-full border-border/60 bg-white/50 backdrop-blur-sm focus:ring-2 focus:ring-primary/20 transition-all"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
 
-      {/* 카드 리스트 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {searchResults.map((item) => (
-          <Card 
-            key={item.id}
-            onClick={() => setSelectedWord(item)}
-            className="group cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden border-2 hover:border-primary/50"
+      {/* 단어 그리드 - 4 Column Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredWords.map((word) => (
+          <div
+            key={word.id}
+            className="group bg-white rounded-2xl p-4 shadow-sm border border-border/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden"
+            onClick={() => setSelectedWord(word)}
           >
-            <CardContent className="p-0 relative aspect-video bg-gray-100">
-              <img src={item.thumbnailUrl} alt={item.word} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all">
-                  <Play className="w-5 h-5 text-primary ml-1" fill="currentColor" />
+            {/* 썸네일 영역 */}
+            <div className="relative aspect-video rounded-xl bg-muted/30 overflow-hidden mb-4 border border-border/20 group-hover:scale-[1.02] transition-transform duration-500">
+              {/* Thumbnail Image (only if URL exists) */}
+              {word.thumbnailUrl && word.thumbnailUrl !== "" && word.thumbnailUrl !== "/placeholder.svg" ? (
+                <img
+                  src={word.thumbnailUrl}
+                  alt={word.word}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                /* Text Fallback when no thumbnail URL */
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 flex items-center justify-center p-4">
+                  <span className="text-4xl font-black text-primary/20 select-none group-hover:text-primary/30 transition-colors">
+                    {word.word}
+                  </span>
+                </div>
+              )}
+              {/* Overlay Play Icon */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-xl transform scale-75 group-hover:scale-100 transition-transform">
+                  <Play className="w-5 h-5 fill-current ml-0.5" />
                 </div>
               </div>
-              <Badge className="absolute top-2 right-2 backdrop-blur-sm">{item.category}</Badge>
-            </CardContent>
-            <div className="p-4">
-              <h3 className="font-bold text-lg">{item.word}</h3>
-              <p className="text-sm text-gray-500 line-clamp-1">{item.description}</p>
             </div>
-          </Card>
+
+            {/* 정보 영역 */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase tracking-wider font-semibold text-secondary bg-secondary/5 px-2 py-1 rounded-md">
+                  {/* Mock Category or existing data */}
+                  {word.category}
+                </span>
+                <span className="text-xs text-muted-foreground">0:05</span>
+              </div>
+              <h3 className="text-lg font-bold text-primary group-hover:text-secondary transition-colors">
+                {word.word}
+              </h3>
+              <p className="text-xs text-muted-foreground line-clamp-2">
+                {word.description || "Standard Korean Sign Language definition."}
+              </p>
+            </div>
+          </div>
         ))}
       </div>
 
       {/* 🎬 상세 보기 팝업 (Modal) - 보안 우회 적용됨 */}
       <Dialog open={!!selectedWord} onOpenChange={() => setSelectedWord(null)}>
         <DialogContent className="sm:max-w-5xl bg-white p-0 overflow-hidden rounded-2xl h-[85vh] sm:h-auto flex flex-col">
-            {selectedWord && (
-                <div className="flex flex-col md:flex-row h-full">
-                    {/* 왼쪽: 영상 영역 (자동 감지) */}
-                    <div className="w-full md:w-3/5 bg-black flex items-center justify-center relative aspect-video md:aspect-auto">
-                         {/* 1. MP4 파일인 경우 (국립국어원 등) -> video 태그 사용 */}
-                         {selectedWord.videoUrl.includes('.mp4') ? (
-                             <video
-                                 key={selectedWord.videoUrl} 
-                                 src={selectedWord.videoUrl}
-                                 controls
-                                 autoPlay
-                                 loop
-                                 playsInline
-                                 referrerPolicy="no-referrer" // 👈 여기가 핵심입니다!
-                                 className="w-full h-full object-contain"
-                             />
-                         ) : (
-                             /* 2. 유튜브 등 외부 링크인 경우 -> iframe 사용 */
-                             <iframe
-                                 className="w-full h-full"
-                                 src={`${getYouTubeEmbedUrl(selectedWord.videoUrl)}?autoplay=1&mute=0`}
-                                 title={selectedWord.word}
-                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                 allowFullScreen
-                             />
-                         )}
-                    </div>
-                    
-                    {/* 오른쪽: 상세 설명 영역 */}
-                    <div className="w-full md:w-2/5 p-6 md:p-8 overflow-y-auto bg-white flex flex-col h-full">
-                        <div className="mb-6">
-                            <div className="flex gap-2 mb-2">
-                                <Badge variant="outline" className="text-primary border-primary">{selectedWord.category}</Badge>
-                                <Badge variant="secondary">{selectedWord.difficulty}</Badge>
-                            </div>
-                            <h2 className="text-3xl font-bold text-gray-900">{selectedWord.word}</h2>
-                            <p className="text-gray-500 mt-1">{selectedWord.description}</p>
-                        </div>
+          {selectedWord && (
+            <div className="flex flex-col md:flex-row h-full">
+              {/* 왼쪽: 영상 영역 (자동 감지) */}
+              <div className="w-full md:w-3/5 bg-black flex items-center justify-center relative aspect-video md:aspect-auto">
+                {/* 1. MP4 파일인 경우 (국립국어원 등) -> video 태그 사용 */}
+                {selectedWord.videoUrl.includes('.mp4') ? (
+                  <video
+                    key={selectedWord.videoUrl}
+                    src={selectedWord.videoUrl}
+                    controls
+                    autoPlay
+                    loop
+                    playsInline
+                    className="w-full h-full object-contain"
+                  />
 
-                        <div className="space-y-6 flex-1">
-                            <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
-                                <h4 className="font-semibold text-yellow-800 mb-1 flex items-center gap-2">💡 수화 동작 Tip</h4>
-                                <p className="text-sm text-gray-700 leading-relaxed">{selectedWord.key_point}</p>
-                            </div>
+                ) : (
+                  /* 2. 유튜브 등 외부 링크인 경우 -> iframe 사용 */
+                  <iframe
+                    className="w-full h-full"
+                    src={`${getYouTubeEmbedUrl(selectedWord.videoUrl)}?autoplay=1&mute=0`}
+                    title={selectedWord.word}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+              </div>
 
-                            <div>
-                                <h4 className="font-semibold text-gray-900 mb-2">활용 예시</h4>
-                                <div className="bg-gray-50 p-3 rounded-lg text-sm text-gray-600">
-                                    "{selectedWord.context}"
-                                </div>
-                            </div>
-
-                            {selectedWord.related_words && selectedWord.related_words.length > 0 && (
-                                <div>
-                                    <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">함께 배우면 좋은 단어</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {selectedWord.related_words.map((word, idx) => (
-                                            <Badge key={idx} variant="secondary" className="cursor-pointer hover:bg-gray-200">
-                                                {word}
-                                            </Badge>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div className="mt-6 md:hidden">
-                             <Button className="w-full" onClick={() => setSelectedWord(null)}>닫기</Button>
-                        </div>
-                    </div>
+              {/* 오른쪽: 상세 설명 영역 */}
+              <div className="w-full md:w-2/5 p-6 md:p-8 overflow-y-auto bg-white flex flex-col h-full">
+                <div className="mb-6">
+                  <div className="flex gap-2 mb-2">
+                    <Badge variant="outline" className="text-primary border-primary">{selectedWord.category}</Badge>
+                    <Badge variant="secondary">{selectedWord.difficulty}</Badge>
+                  </div>
+                  <h2 className="text-3xl font-bold text-gray-900">{selectedWord.word}</h2>
+                  <p className="text-gray-500 mt-1">{selectedWord.description}</p>
                 </div>
-            )}
-            
-            <DialogHeader className="sr-only">
-                <DialogTitle>{selectedWord?.word}</DialogTitle>
-                <DialogDescription>{selectedWord?.description}</DialogDescription>
-            </DialogHeader>
+
+                <div className="space-y-6 flex-1">
+                  <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
+                    <h4 className="font-semibold text-yellow-800 mb-1 flex items-center gap-2">💡 수화 동작 Tip</h4>
+                    <p className="text-sm text-gray-700 leading-relaxed">{selectedWord.key_point}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">활용 예시</h4>
+                    <div className="bg-gray-50 p-3 rounded-lg text-sm text-gray-600">
+                      "{selectedWord.context}"
+                    </div>
+                  </div>
+
+                  {selectedWord.related_words && selectedWord.related_words.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">함께 배우면 좋은 단어</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedWord.related_words.map((word, idx) => (
+                          <Badge key={idx} variant="secondary" className="cursor-pointer hover:bg-gray-200">
+                            {word}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-6 md:hidden">
+                  <Button className="w-full" onClick={() => setSelectedWord(null)}>닫기</Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogHeader className="sr-only">
+            <DialogTitle>{selectedWord?.word}</DialogTitle>
+            <DialogDescription>{selectedWord?.description}</DialogDescription>
+          </DialogHeader>
         </DialogContent>
       </Dialog>
+
+      {/* Copyright Footer */}
+      <footer className="mt-32 py-10 border-t text-center space-y-2">
+        <p className="text-muted-foreground text-sm">
+          본 콘텐츠의 수어 영상 출처는 <span className="font-semibold text-foreground">국립국어원 한국수어사전</span>입니다.
+        </p>
+        <p className="text-xs text-muted-foreground/60">
+          Creative Commons Attribution-NonCommercial-NoDerivs 2.0 Korea License
+        </p>
+      </footer>
     </div>
   )
 }
+

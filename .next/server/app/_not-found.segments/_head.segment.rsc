@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[42949,["/_next/static/chunks/052404ffc3c30846.js","/_next/static/chunks/1f26ce154ba26398.js"],"ViewportBoundary"]
+4:I[42949,["/_next/static/chunks/052404ffc3c30846.js","/_next/static/chunks/1f26ce154ba26398.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[58387,["/_next/static/chunks/052404ffc3c30846.js","/_next/static/chunks/1f26ce154ba26398.js"],"IconMark"]
+0:{"buildId":"kR-uAqAe8PYUE82BZzcoI","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"SonDam | 손담 - 수화 소통 플랫폼"}],["$","meta","1",{"name":"description","content":"청각 장애인을 위한 수화 사전, AI 번역, 아바타 서비스를 제공하는 소통 플랫폼"}],["$","link","2",{"rel":"manifest","href":"/manifest.json"}],["$","meta","3",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","4",{"name":"apple-mobile-web-app-title","content":"SonDam"}],["$","meta","5",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","link","6",{"rel":"icon","href":"/icon-light-32x32.png","media":"(prefers-color-scheme: light)"}],["$","link","7",{"rel":"icon","href":"/icon-dark-32x32.png","media":"(prefers-color-scheme: dark)"}],["$","link","8",{"rel":"icon","href":"/icon.svg","type":"image/svg+xml"}],["$","link","9",{"rel":"apple-touch-icon","href":"/apple-icon.png"}],["$","$L7","10",{}]]

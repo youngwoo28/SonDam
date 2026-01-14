@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/camera-test/layout,_N_T_/camera-test/page,_N_T_/camera-test"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/camera-test/__PAGE__",
+    "/camera-test",
+    "/_index",
+    "/_head"
+  ]
+}

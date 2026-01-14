@@ -1,0 +1,366 @@
+[
+  {
+    "word": "안녕",
+    "category": "일상",
+    "description": "만남과 헤어짐에서 사용하는 기본 인사",
+    "key_point": "두 주먹을 가슴 앞에서 아래로 내립니다",
+    "context": "친구와 만났을 때, 헤어질 때 사용",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/안녕.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "반갑다",
+      "인사"
+    ]
+  },
+  {
+    "word": "감사",
+    "category": "일상",
+    "description": "고마움을 전할 때 사용하는 표현",
+    "key_point": "손끝이 밖으로 향하게 펴서 모로 세운 오른손의 새끼손가락 쪽 옆면을, 손바닥이 아래로 향하게 편 왼 손등에 두 번 댄다",
+    "context": "도움을 받았을 때, 선물을 받을 때 사용",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/감사.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "고맙다",
+      "감사하다"
+    ]
+  },
+  {
+    "word": "사랑",
+    "category": "감정",
+    "description": "애정과 사랑하는 마음을 표현",
+    "key_point": "주먹 위에 손바닥을 대고 돌립니다",
+    "context": "가족, 연인에게 마음을 전할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/사랑.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "좋아하다",
+      "사랑하다"
+    ]
+  },
+  {
+    "word": "미안",
+    "category": "일상",
+    "description": "사과의 마음을 전하는 표현",
+    "key_point": "오른손을 'OK' 모양으로 만들어 이마에 댄 후 아래로 내리며, 왼손 등 위를 가볍게 두드린다",
+    "context": "실수했을 때, 늦었을 때 사용",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/죄송.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1445384763658-0400939829cd?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "죄송",
+      "미안하다"
+    ]
+  },
+  {
+    "word": "괜찮다",
+    "category": "일상",
+    "description": "문제없음을 나타내는 긍정 표현",
+    "key_point": "새끼손가락을 턱 밑에 두 번 가볍게 두드린다",
+    "context": "상태를 물어봤을 때, 사과를 받아줄 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/괜찮다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "좋다",
+      "OK"
+    ]
+  },
+  {
+    "word": "도움",
+    "category": "일상",
+    "description": "도움이 필요할 때 사용하는 표현",
+    "key_point": "한 손을 다른 손으로 받쳐 올립니다",
+    "context": "도움이 필요할 때, 도와달라고 할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/돕다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "돕다",
+      "도와주다"
+    ]
+  },
+  {
+    "word": "배고프다",
+    "category": "일상",
+    "description": "배가 고픈 상태를 표현",
+    "key_point": "배 부분을 손으로 만지거나 두드립니다",
+    "context": "식사 시간, 간식을 원할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/배고프다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "먹다",
+      "식사"
+    ]
+  },
+  {
+    "word": "학생",
+    "category": "사람",
+    "description": "학교에 다니는 사람을 지칭",
+    "key_point": "양손을 위아래로 번갈아 두 번 움직입니다",
+    "context": "자기소개할 때, 학생을 지칭할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/학생.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "학교",
+      "공부"
+    ]
+  },
+  {
+    "word": "친구",
+    "category": "사람",
+    "description": "가까운 사이의 사람을 지칭",
+    "key_point": "두 손을 두 번 맞잡습니다",
+    "context": "친구를 소개할 때, 지칭할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/%E1%84%8E%E1%85%B5%E1%86%AB%E1%84%80%E1%85%AE.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "동료",
+      "지인"
+    ]
+  },
+  {
+    "word": "가족",
+    "category": "사람",
+    "description": "한 집에 사는 혈연관계",
+    "key_point": "손끝을 맞대고 세운 후 오른손을 흔들며 옆으로 이동합니다",
+    "context": "가족을 소개할 때, 말할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/%E1%84%80%E1%85%A1%E1%84%8C%E1%85%A9%E1%86%A8.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "부모",
+      "형제"
+    ]
+  },
+  {
+    "word": "학교",
+    "category": "장소",
+    "description": "학생들이 공부하는 장소",
+    "key_point": "두 손을 펴서 얼굴 앞에 세워 한 번 당깁니다",
+    "context": "학교를 말할 때, 장소를 설명할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/%E1%84%92%E1%85%A1%E1%86%A8%E1%84%80%E1%85%AD.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "학생",
+      "공부"
+    ]
+  },
+  {
+    "word": "병원",
+    "category": "장소",
+    "description": "아픈 사람을 치료하는 곳",
+    "key_point": "왼손등을 두 손가락으로 두 번 두드린 후 손끝을 맞대어 세웁니다",
+    "context": "병원에 갈 때, 아플 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/병원.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "아프다",
+      "의사"
+    ]
+  },
+  {
+    "word": "맛있다",
+    "category": "감정",
+    "description": "음식이 맛있음을 표현",
+    "key_point": "검지로 볼을 만집니다",
+    "context": "음식을 먹고 칭찬할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/맛있다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "맛",
+      "먹다"
+    ]
+  },
+  {
+    "word": "행복",
+    "category": "감정",
+    "description": "기쁘고 즐거운 마음",
+    "key_point": "손을 턱에 대고 아래로 쓸어내립니다",
+    "context": "좋은 일이 있을 때, 기쁜 마음을 표현할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/행복.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "기쁘다",
+      "즐겁다"
+    ]
+  },
+  {
+    "word": "슬프다",
+    "category": "감정",
+    "description": "슬픈 감정을 표현",
+    "key_point": "얼굴에서 눈물이 흐르듯 손을 내립니다",
+    "context": "안타까운 일이 있을 때, 위로가 필요할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/슬프다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516733968668-dbdce39c4651?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "우울하다",
+      "눈물"
+    ]
+  },
+  {
+    "word": "화나다",
+    "category": "감정",
+    "description": "화가 난 감정을 표현",
+    "key_point": "손을 위로 올리며 화난 표정을 짓습니다",
+    "context": "억울하거나 불만스러울 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/화나다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1551731409-43eb3e517a1a?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "분노",
+      "짜증"
+    ]
+  },
+  {
+    "word": "공부",
+    "category": "일상",
+    "description": "학습하고 연구하는 행위",
+    "key_point": "손을 책장 넘기듯 반복해서 움직입니다",
+    "context": "공부할 때, 학습 중일 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/공부.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "학습",
+      "연구"
+    ]
+  },
+  {
+    "word": "무섭다",
+    "category": "감정",
+    "description": "두려운 감정을 표현",
+    "key_point": "손을 떨며 무서운 표정을 짓습니다",
+    "context": "무서운 상황, 두려움을 느낄 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/무섭다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1509803874385-db7c23652552?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "두렵다",
+      "공포"
+    ]
+  },
+  {
+    "word": "선생님",
+    "category": "사람",
+    "description": "가르치는 사람을 지칭",
+    "key_point": "손을 이마에서 내리며 경의를 표합니다",
+    "context": "선생님을 부를 때, 지칭할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/선생님.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "교사",
+      "스승"
+    ]
+  },
+  {
+    "word": "심심하다",
+    "category": "감정",
+    "description": "재미가 없고 지루한 상태",
+    "key_point": "손을 옆으로 흔들며 지루함을 표현합니다",
+    "context": "할 일이 없을 때, 지루할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/심심하다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1551029506-0807df4e2031?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "지루하다",
+      "따분하다"
+    ]
+  },
+  {
+    "word": "아프다",
+    "category": "감정",
+    "description": "몸이나 마음이 아픈 상태",
+    "key_point": "손을 모아 옆으로 흔듭니다",
+    "context": "몸이 아플 때, 통증이 있을 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/아프다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "통증",
+      "질병"
+    ]
+  },
+  {
+    "word": "약국",
+    "category": "장소",
+    "description": "약을 파는 곳",
+    "key_point": "약을 먹는 동작을 합니다",
+    "context": "약국에 갈 때, 약을 사러 갈 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/약국.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "약",
+      "처방전"
+    ]
+  },
+  {
+    "word": "일하다",
+    "category": "일상",
+    "description": "업무나 노동을 하는 행위",
+    "key_point": "손을 앞뒤로 움직이며 일하는 동작을 합니다",
+    "context": "직장에서, 일할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/일하다.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "근무",
+      "노동"
+    ]
+  },
+  {
+    "word": "조심",
+    "category": "일상",
+    "description": "주의하라는 경고의 표현",
+    "key_point": "손을 아래로 내리며 주의를 줍니다",
+    "context": "위험할 때, 주의가 필요할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/조심.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "주의",
+      "경고"
+    ]
+  },
+  {
+    "word": "회사",
+    "category": "장소",
+    "description": "일하는 직장",
+    "key_point": "건물을 나타내는 동작을 합니다",
+    "context": "회사에 갈 때, 직장을 말할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/회사.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "직장",
+      "사무실"
+    ]
+  },
+  {
+    "word": "회의",
+    "category": "일상",
+    "description": "여러 사람이 모여 의논하는 것",
+    "key_point": "사람들이 모인 모습을 손으로 표현합니다",
+    "context": "회의할 때, 미팅할 때",
+    "videoUrl": "https://sondam-videos-2025.s3.ap-northeast-2.amazonaws.com/videos/회의.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    "difficulty": "초급",
+    "related_words": [
+      "미팅",
+      "토론"
+    ]
+  }
+]

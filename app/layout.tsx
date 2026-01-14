@@ -17,7 +17,6 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "SonDam",
   },
-  generator: "v0.app",
   icons: {
     icon: [
       {

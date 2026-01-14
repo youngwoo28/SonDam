@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/camera-test/page": "/camera-test",
+  "/contribute/page": "/contribute",
+  "/dictionary/page": "/dictionary",
+  "/login/page": "/login",
+  "/page": "/",
+  "/signup/page": "/signup"
+}

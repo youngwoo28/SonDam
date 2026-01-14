@@ -1,0 +1,9 @@
+{
+  "[project]/node_modules/.pnpm/@mediapipe+hands@0.4.1675469240/node_modules/@mediapipe/hands/hands.js [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/node_modules/.pnpm/@mediapipe+hands@0.4.1675469240/node_modules/@mediapipe/hands/hands.js [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/50f21_@mediapipe_hands_hands_1f73cc73.js",
+      "static/chunks/50f21_@mediapipe_hands_hands_4d4689f4.js"
+    ]
+  }
+}

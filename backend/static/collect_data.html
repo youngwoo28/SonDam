@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수어 데이터 수집 도구 - SonDam</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .control-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .video-container {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+        }
+
+        video {
+            width: 100%;
+            max-width: 640px;
+            display: block;
+            height: auto;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 640px;
+            width: 100%;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        button {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-recording {
+            background: #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .status-panel {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+
+        .status-value {
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .recording-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            margin-right: 8px;
+        }
+
+        .recording-indicator.active {
+            background: #ef4444;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🖐️ 수어 데이터 수집 도구</h1>
+        <p class="subtitle">ML 모델 훈련을 위한 한국 수어 데이터를 수집합니다</p>
+
+        <div class="control-panel">
+            <div class="form-group">
+                <label for="sign-select">수어 선택:</label>
+                <select id="sign-select">
+                    <option value="안녕">안녕</option>
+                    <option value="감사">감사</option>
+                    <option value="사랑">사랑</option>
+                    <option value="도움">도움</option>
+                    <option value="괜찮다">괜찮다</option>
+                    <option value="미안">미안</option>
+                    <option value="좋다">좋다</option>
+                    <option value="나쁘다">나쁘다</option>
+                    <option value="배고프다">배고프다</option>
+                    <option value="학생">학생</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recorder-name">기록자 이름 (선택사항):</label>
+                <input type="text" id="recorder-name" placeholder="홍길동">
+            </div>
+        </div>
+
+        <div class="video-container">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <div class="button-group">
+            <button id="start-recording" class="btn-primary">📹 녹화 시작 (3초)</button>
+            <button id="save-data" class="btn-success">💾 데이터 저장</button>
+            <button id="clear-session" class="btn-danger">🗑️ 세션 초기화</button>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-item">
+                <span><span class="recording-indicator" id="recording-indicator"></span>상태:</span>
+                <span class="status-value" id="recording-status">대기 중</span>
+            </div>
+            <div class="status-item">
+                <span>수집된 샘플:</span>
+                <span class="status-value" id="sample-count">0</span>
+            </div>
+            <div class="status-item">
+                <span>현재 세션:</span>
+                <span class="status-value" id="session-info">수어를 선택하고 녹화를 시작하세요</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script>
+        let recording = false;
+        let currentSequence = [];
+        let allSamples = [];
+        let hands;
+        let camera;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // MediaPipe Hands 초기화
+        hands = new Hands({
+            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+        });
+
+        hands.setOptions({
+            maxNumHands: 2,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+
+        hands.onResults((results) => {
+            // Canvas 크기 조정
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw hand landmarks
+            if (results.multiHandLandmarks) {
+                for (const landmarks of results.multiHandLandmarks) {
+                    // Draw connections
+                    drawConnectors(ctx, landmarks);
+                    drawLandmarks(ctx, landmarks);
+
+                    // Record if active
+                    if (recording && landmarks) {
+                        const landmarksArray = landmarks.map(p => [p.x, p.y, p.z]);
+                        currentSequence.push(landmarksArray);
+                    }
+                }
+            }
+        });
+
+        // MediaPipe 그리기 함수
+        function drawConnectors(ctx, landmarks) {
+            const connections = [
+                [0, 1], [1, 2], [2, 3], [3, 4],       // Thumb
+                [0, 5], [5, 6], [6, 7], [7, 8],       // Index
+                [0, 9], [9, 10], [10, 11], [11, 12],  // Middle
+                [0, 13], [13, 14], [14, 15], [15, 16], // Ring
+                [0, 17], [17, 18], [18, 19], [19, 20], // Pinky
+            ];
+
+            ctx.strokeStyle = '#00FF00';
+            ctx.lineWidth = 2;
+
+            connections.forEach(([start, end]) => {
+                const startPoint = landmarks[start];
+                const endPoint = landmarks[end];
+                ctx.beginPath();
+                ctx.moveTo(startPoint.x * canvas.width, startPoint.y * canvas.height);
+                ctx.lineTo(endPoint.x * canvas.width, endPoint.y * canvas.height);
+                ctx.stroke();
+            });
+        }
+
+        function drawLandmarks(ctx, landmarks) {
+            landmarks.forEach((landmark) => {
+                ctx.fillStyle = '#FF0000';
+                ctx.beginPath();
+                ctx.arc(landmark.x * canvas.width, landmark.y * canvas.height, 5, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        // 카메라 시작
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+            .then(stream => {
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    processFrame();
+                };
+            })
+            .catch(err => {
+                alert('카메라에 접근할 수 없습니다: ' + err.message);
+            });
+
+        // 프레임 처리
+        async function processFrame() {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                await hands.send({ image: video });
+            }
+            requestAnimationFrame(processFrame);
+        }
+
+        // 녹화 시작
+        document.getElementById('start-recording').addEventListener('click', () => {
+            recording = true;
+            currentSequence = [];
+            const sign = document.getElementById('sign-select').value;
+
+            document.getElementById('recording-status').textContent = `"${sign}" 녹화 중... (3초)`;
+            document.getElementById('recording-indicator').classList.add('active');
+            document.getElementById('start-recording').classList.add('btn-recording');
+
+            // 3초 후 자동 종료
+            setTimeout(() => {
+                recording = false;
+                document.getElementById('recording-indicator').classList.remove('active');
+                document.getElementById('start-recording').classList.remove('btn-recording');
+
+                if (currentSequence.length > 0) {
+                    const recorder = document.getElementById('recorder-name').value || '익명';
+                    allSamples.push({
+                        sign: sign,
+                        sequence: currentSequence,
+                        recorder: recorder,
+                        timestamp: new Date().toISOString(),
+                        frames: currentSequence.length
+                    });
+
+                    document.getElementById('sample-count').textContent = allSamples.length;
+                    document.getElementById('recording-status').textContent = `샘플 저장됨! (${currentSequence.length} 프레임)`;
+                    document.getElementById('session-info').textContent = `마지막: "${sign}" - ${currentSequence.length}프레임`;
+                } else {
+                    document.getElementById('recording-status').textContent = '손이 감지되지 않았습니다. 다시 시도하세요.';
+                }
+            }, 3000);
+        });
+
+        // 데이터 저장
+        document.getElementById('save-data').addEventListener('click', () => {
+            if (allSamples.length === 0) {
+                alert('저장할 샘플이 없습니다!');
+                return;
+            }
+
+            const dataStr = JSON.stringify(allSamples, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sign_data_${Date.now()}.json`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+            alert(`✅ ${allSamples.length}개 샘플 저장 완료!`);
+        });
+
+        // 세션 초기화
+        document.getElementById('clear-session').addEventListener('click', () => {
+            if (confirm('모든 수집된 데이터를 삭제하시겠습니까?')) {
+                allSamples = [];
+                document.getElementById('sample-count').textContent = '0';
+                document.getElementById('recording-status').textContent = '세션이 초기화되었습니다';
+                document.getElementById('session-info').textContent = '수어를 선택하고 녹화를 시작하세요';
+            }
+        });
+    </script>
+</body>
+
+</html>
