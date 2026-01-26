@@ -1,5 +1,5 @@
 # 🖐️ SonDam (손담) - 청각장애인을 위한 수어 소통 플랫폼
- 
+  
 > **"손으로 나누는 따뜻한 이야기"**
 > 청각장애인과 비장애인의 소통 장벽을 허무는 AI 기반 수어 번역 및 검색 서비스
 <img src="./public/3d-avatar-sign-language.jpg" width="100%" height="750">
